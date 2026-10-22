@@ -35,6 +35,20 @@ app.use(express_1.default.json({ limit: '1mb' }));
 app.use(express_1.default.urlencoded({ extended: true }));
 // Trust proxy headers (crucial for accurate visitor IP behind Nginx/Vercel/Render)
 app.set('trust proxy', true);
+// Root endpoint
+app.get('/', (_req, res) => {
+    res.json({
+        status: 'online',
+        service: 'devAltec Analytics & Project Intake Engine',
+        timestamp: new Date().toISOString(),
+        endpoints: {
+            health: '/health',
+            track: '/api/track',
+            analytics: '/api/analytics/summary',
+            inquiries: '/api/inquiries',
+        },
+    });
+});
 // Health check
 app.get('/health', (_req, res) => {
     res.json({

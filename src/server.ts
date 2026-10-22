@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db';
 import trackRoutes from './routes/trackRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
+import inquiryRoutes from './routes/inquiryRoutes';
 
 // Resolve .env robustly across working directories
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -50,6 +51,7 @@ app.get('/health', (_req: Request, res: Response) => {
 // Routes
 app.use('/api/track', trackRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/inquiries', inquiryRoutes);
 
 // 404 handler
 app.use((_req: Request, res: Response) => {

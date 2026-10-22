@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: devaltecbackend
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: node dist/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        value: https://devaltec.vercel.app
+      - key: ADMIN_SECRET_KEY
+        value: devaltec_admin_secret_2026
+      - key: MONGODB_URI
+        value: mongodb+srv://olamilekanmuhayad_db_user:aKqWBYlFiglZTB42@devaltecv.zhhbtid.mongodb.net/devaltec?retryWrites=true&w=majority&appName=DevAltecV

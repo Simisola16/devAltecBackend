@@ -7,10 +7,9 @@ dotenv.config({ path: path.resolve(process.cwd(), 'backend/.env') });
 dotenv.config();
 
 export const connectDB = async (): Promise<void> => {
-  const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    throw new Error('MONGODB_URI is not defined in environment variables');
-  }
+  const uri =
+    process.env.MONGODB_URI ||
+    'mongodb+srv://olamilekanmuhayad_db_user:aKqWBYlFiglZTB42@devaltecv.zhhbtid.mongodb.net/devaltec?retryWrites=true&w=majority&appName=DevAltecV';
 
   try {
     const conn = await mongoose.connect(uri, {

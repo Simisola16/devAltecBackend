@@ -11,10 +11,8 @@ dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 dotenv_1.default.config({ path: path_1.default.resolve(process.cwd(), 'backend/.env') });
 dotenv_1.default.config();
 const connectDB = async () => {
-    const uri = process.env.MONGODB_URI;
-    if (!uri) {
-        throw new Error('MONGODB_URI is not defined in environment variables');
-    }
+    const uri = process.env.MONGODB_URI ||
+        'mongodb+srv://olamilekanmuhayad_db_user:aKqWBYlFiglZTB42@devaltecv.zhhbtid.mongodb.net/devaltec?retryWrites=true&w=majority&appName=DevAltecV';
     try {
         const conn = await mongoose_1.default.connect(uri, {
             serverSelectionTimeoutMS: 10000,

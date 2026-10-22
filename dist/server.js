@@ -52,8 +52,8 @@ app.use((_req, res) => {
     res.status(404).json({ success: false, message: 'Endpoint not found' });
 });
 // Start Server
-const server = app.listen(PORT, () => {
-    console.log(`[devAltec Backend] Server running on http://localhost:${PORT}`);
+const server = app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`[devAltec Backend] Server running on http://0.0.0.0:${PORT}`);
     console.log(`[devAltec Backend] MongoDB connected to cluster: devaltecv.zhhbtid.mongodb.net`);
 });
 // Handle graceful termination

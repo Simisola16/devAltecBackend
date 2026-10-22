@@ -19,21 +19,30 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 // Middleware
+const allowedOrigins = [
+  process.env.CLIENT_URL,           // https://devaltec.vercel.app (from .env)
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+].filter(Boolean) as string[];
+
 app.use(
   cors({
-    // Allow the frontend origin and any other trusted origins
     origin: (origin, callback) => {
-      const allowed = [process.env.CLIENT_URL, 'http://localhost:3000', 'http://127.0.0.1:3000'];
-      if (!origin || allowed.includes(origin)) {
+      // Allow server-to-server requests (no origin) and whitelisted origins
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        // For any other origin, you could still allow but here we restrict
-        callback(null, true);
+        callback(new Error(`CORS: origin '${origin}' not allowed`));
       }
     },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   })
 );
+
+// Respond to all OPTIONS preflight requests immediately
+app.options('*', cors());
 // Note: In production Render will set PORT env variable; we already fallback to 5000.
 
 

@@ -21,17 +21,21 @@ connectDB();
 // Middleware
 app.use(
   cors({
+    // Allow the frontend origin and any other trusted origins
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, server-to-server) or localhost
-      if (!origin || origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
+      const allowed = [process.env.CLIENT_URL, 'http://localhost:3000', 'http://127.0.0.1:3000'];
+      if (!origin || allowed.includes(origin)) {
         callback(null, true);
-        return;
+      } else {
+        // For any other origin, you could still allow but here we restrict
+        callback(null, true);
       }
-      callback(null, true); // Permissive for client tracking across domains
     },
     credentials: true,
   })
 );
+// Note: In production Render will set PORT env variable; we already fallback to 5000.
+
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));

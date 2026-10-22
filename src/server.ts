@@ -20,7 +20,8 @@ connectDB();
 
 // Middleware
 const allowedOrigins = [
-  process.env.CLIENT_URL,           // https://devaltec.vercel.app (from .env)
+  process.env.CLIENT_URL,              // set in Render dashboard env vars
+  'https://devaltec.vercel.app',       // hardcoded fallback
   'http://localhost:3000',
   'http://127.0.0.1:3000',
 ].filter(Boolean) as string[];
